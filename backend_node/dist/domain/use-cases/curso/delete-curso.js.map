@@ -1,0 +1,1 @@
+{"version":3,"file":"delete-curso.js","sourceRoot":"","sources":["../../../../src/domain/use-cases/curso/delete-curso.ts"],"names":[],"mappings":";;;AASA,MAAa,WAAW;IAEtB,YACmB,UAA2B;QAA3B,eAAU,GAAV,UAAU,CAAiB;IAC3C,CAAC;IAEJ,OAAO,CAAE,EAAU;QACjB,OAAO,IAAI,CAAC,UAAU,CAAC,UAAU,CAAC,EAAE,CAAC,CAAC;IACxC,CAAC;CAEF;AAVD,kCAUC"}
