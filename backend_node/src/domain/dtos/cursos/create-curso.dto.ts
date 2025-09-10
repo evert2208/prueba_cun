@@ -12,8 +12,8 @@ export class CreateCursoDto {
 
     const { nombre, descripcion} = props;
 
-    if ( !nombre || nombre.length === 0 ) return ['Text property is required', undefined];
-    if ( !descripcion || descripcion.length === 0 ) return ['Text property is required', undefined];
+    if ( !nombre || nombre.length === 0 ) return ['nombre property is required', undefined];
+    if ( !descripcion || descripcion.length === 0 ) return ['descripcion property is required', undefined];
 
     return [undefined, new CreateCursoDto(nombre,descripcion)];
   }

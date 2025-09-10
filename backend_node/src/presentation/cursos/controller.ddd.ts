@@ -3,7 +3,7 @@ import { prisma } from '../../data/postgres';
 import { CreateCursoDto, CursoRepository, UpdateCursoDto } from '../../domain';
 
 
-export class TodosController {
+export class CursosController {
 
   //* DI
   constructor(

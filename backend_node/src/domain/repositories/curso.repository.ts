@@ -6,7 +6,7 @@ export abstract class CursoRepository {
 
   abstract create( createCursoDto: CreateCursoDto ): Promise<CursoEntity>;
 
-  //todo: paginación
+  
   abstract getAll(): Promise<CursoEntity[]>;
 
   abstract findById( id: number ): Promise<CursoEntity>;

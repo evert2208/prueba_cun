@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { CursoRoutes } from './cursos/routes';
+import { LeccionRoutes } from './lecciones/routes';
 
 
 
@@ -13,6 +14,8 @@ export class AppRoutes {
     const router = Router();
 
     router.use('/api/cursos', CursoRoutes.routes );
+     router.use('/api/lecciones', LeccionRoutes.routes );
+
 
 
 
