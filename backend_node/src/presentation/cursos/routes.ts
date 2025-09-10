@@ -16,7 +16,7 @@ export class CursoRoutes {
     const cursoController = new CursosController(cursoRepository);
 
     router.get('/', cursoController.getCursos );
-    router.get('/:id', cursoController.getCursoById );
+    router.get('/:id/lecciones', cursoController.getLeccionById );
     
     router.post('/', cursoController.createCurso );
     router.put('/:id', cursoController.updateCurso );

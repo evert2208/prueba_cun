@@ -16,7 +16,7 @@ export class LeccionRoutes {
     const leccionesController = new LeccionesController(leccionRepository);
 
     router.get('/', leccionesController.getLecciones );
-    router.get('/:id', leccionesController.getLeccionById );
+    router.get('/:id/preguntas', leccionesController.getPreguntasById );
     
     router.post('/', leccionesController.createLeccion );
     router.put('/:id', leccionesController.updateLeccion );

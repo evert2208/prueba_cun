@@ -20,8 +20,8 @@ export class CursosController {
     const id = +req.params.id;
 
     try {
-      const curso = await this.cursoRepository.findById( id );
-      res.json( curso );
+      const lecciones = await this.cursoRepository.findById( id );
+      res.json( lecciones );
 
     } catch ( error ) {
       res.status( 400 ).json( { error } );

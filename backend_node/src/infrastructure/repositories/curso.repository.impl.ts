@@ -1,4 +1,4 @@
-import { CreateCursoDto, CursoDatasource, CursoEntity, CursoRepository, UpdateCursoDto } from '../../domain';
+import { CreateCursoDto, CursoDatasource, CursoEntity, CursoRepository, LeccionEntity, UpdateCursoDto } from '../../domain';
 
 
 export class CursoRepositoryImpl implements CursoRepository {
@@ -16,7 +16,7 @@ export class CursoRepositoryImpl implements CursoRepository {
     return this.datasource.getAll();
   }
 
-  findById( id: number ): Promise<CursoEntity> {
+  findById( id: number ): Promise<LeccionEntity[]> {
     return this.datasource.findById( id );
   }
 

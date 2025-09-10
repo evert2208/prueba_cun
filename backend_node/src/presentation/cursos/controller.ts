@@ -30,7 +30,7 @@ export class CursosController {
 
   };
 
-  public getCursoById = ( req: Request | any, res: Response ) => {
+  public getLeccionById = ( req: Request | any, res: Response ) => {
     const id = +req.params.id;
 
     new GetCurso( this.cursoRepository )

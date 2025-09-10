@@ -29,7 +29,7 @@ export class LeccionesController {
 
   };
 
-  public getLeccionById = ( req: Request | any, res: Response ) => {
+  public getPreguntasById = ( req: Request | any, res: Response ) => {
     const id = +req.params.id;
 
     new GetLeccion( this.leccionRepository )

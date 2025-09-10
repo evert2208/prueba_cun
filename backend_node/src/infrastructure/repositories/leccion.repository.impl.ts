@@ -1,4 +1,4 @@
-import { CreateLeccionDto, LeccionDatasource, LeccionEntity, LeccionRepository, UpdateLeccionDto } from "../../domain";
+import { CreateLeccionDto, LeccionDatasource, LeccionEntity, LeccionRepository, PreguntaEntity, UpdateLeccionDto } from "../../domain";
 
 
 
@@ -17,7 +17,7 @@ export class LeccionRepositoryImpl implements LeccionRepository {
     return this.datasource.getAll();
   }
 
-  findById( id: number ): Promise<LeccionEntity> {
+  findById( id: number ): Promise<PreguntaEntity[]> {
     return this.datasource.findById( id );
   }
 

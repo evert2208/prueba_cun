@@ -1,5 +1,6 @@
 import { CreateCursoDto, UpdateCursoDto } from '../dtos';
 import { CursoEntity } from '../entities/curso.entity';
+import { LeccionEntity } from '../entities/leccion.entity';
 
 
 export abstract class CursoRepository {
@@ -9,7 +10,7 @@ export abstract class CursoRepository {
   
   abstract getAll(): Promise<CursoEntity[]>;
 
-  abstract findById( id: number ): Promise<CursoEntity>;
+  abstract findById( id: number ): Promise<LeccionEntity[]>;
   abstract updateById( updateCursoDto: UpdateCursoDto ): Promise<CursoEntity>;
   abstract deleteById( id: number ): Promise<CursoEntity>;
 

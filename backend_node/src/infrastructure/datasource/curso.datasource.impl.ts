@@ -1,5 +1,5 @@
 import { prisma } from '../../data/postgres';
-import { CreateCursoDto, CursoDatasource, CustomError, CursoEntity, UpdateCursoDto } from '../../domain';
+import { CreateCursoDto, CursoDatasource, CustomError, CursoEntity, UpdateCursoDto, LeccionEntity } from '../../domain';
 
 
 
@@ -19,13 +19,13 @@ export class CursoDatasourceImpl implements CursoDatasource {
     return cursos.map( (curso: any) => CursoEntity.fromObject(curso) );
   }
 
-  async findById( id: number ): Promise<CursoEntity> {
-    const curso = await prisma.curso.findFirst({
-      where: { id }
+  async findById( id: number ): Promise<LeccionEntity[]> {
+    const lecciones:any[] = await prisma.leccion.findMany({
+      where: { cursoId: id }
     });
 
-    if ( !curso ) throw new CustomError(`Curso with id ${ id } not found`, 404);
-    return CursoEntity.fromObject(curso);
+    // if ( !lecciones ) throw new CustomError(`Lecciones with cursoid ${ id } not found`, 404);
+    return lecciones.map( (leccion: any) => LeccionEntity.fromObject(leccion) );
   }
 
   async updateById( updateCursoDto: UpdateCursoDto ): Promise<CursoEntity> {

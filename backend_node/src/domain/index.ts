@@ -23,4 +23,14 @@ export * from './use-cases/leccion/delete-leccion';
 export * from './use-cases/leccion/get-leccion';
 export * from './use-cases/leccion/get-lecciones';
 
+export * from './datasources/pregunta.datasouce';
+export * from './entities/pregunta.entity';
+export * from './repositories/pregunta.repository';
+
+export * from './use-cases/pregunta/create-pregunta';
+export * from './use-cases/pregunta/update-pregunta';
+export * from './use-cases/pregunta/delete-pregunta';
+export * from './use-cases/pregunta/get-pregunta';
+export * from './use-cases/pregunta/get-preguntas';
+
 
