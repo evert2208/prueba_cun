@@ -1,4 +1,4 @@
-# Proyecto Fullstack (React + Node.js con Docker)
+# Proyecto Fullstack (React, Node.js, postgreSql con Docker)
 
 Este proyecto está compuesto por dos aplicaciones:
 
@@ -6,11 +6,11 @@ Este proyecto está compuesto por dos aplicaciones:
 - **Backend**: Node.js  
 - **Contenedores y postgreSql**: Docker / Docker Compose
 
-Construir y levantar el backend y la bd 
+Construir el contenedor y levantar el backend y la bd 
 - docker-compose build
 - docker-compose up -d
 
-Levantar servicio frontend
+Levantar servicio frontend local
 - npm install
 - npm start o npm run dev
 
