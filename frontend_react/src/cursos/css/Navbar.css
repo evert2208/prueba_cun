@@ -1,0 +1,24 @@
+#img {
+    width: 160px !important;
+    height: 50px !important;
+    margin-right: 20px !important;
+    margin-left: 20px !important;
+}
+
+nav {
+    background-color: white;
+    box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.2)
+}
+
+#logout {
+    padding-right: 30px;
+}
+
+.active {
+    color: #91DC00 !important;
+    font-weight: bold !important;
+}
+
+.cursor {
+    cursor: pointer;
+}
