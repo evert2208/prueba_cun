@@ -1,47 +1,48 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface PreguntasState {
-  loadinginscrip: boolean;
+  loadingPreg: boolean;
   preguntas: any[];
-  activeinscrip: any | null;
+  activePreg: any | null;
 }
 
 const initialState: PreguntasState = {
-  loadinginscrip: true,
+  loadingPreg: true,
   preguntas: [],
-  activeinscrip: null,
+  activePreg: null,
 };
 
 export const preguntasSlice = createSlice({
   name: 'preguntas',
   initialState,
   reducers: {
-    onSetActiveInscripcion: (state, action: PayloadAction<any>) => {
-      state.activeinscrip = action.payload;
+    onSetActivePregunta: (state, action: PayloadAction<any>) => {
+      state.activePreg = action.payload;
     },
 
-    onAddNewInscripcion: (state, action: PayloadAction<any>) => {
+    onAddNewPregunta: (state, action: PayloadAction<any>) => {
       state.preguntas.push(action.payload);
-      state.activeinscrip = null;
+      state.activePreg = null;
     },
 
-    onUpdateInscripcion: (state, action: PayloadAction<any>) => {
+    onUpdatePregunta: (state, action: PayloadAction<any>) => {
       state.preguntas = state.preguntas.map((event) =>
         event.id === action.payload.id ? action.payload : event
       );
     },
 
-    onDeleteInscripcion: (state) => {
-      if (state.activeinscrip) {
+    onDeletePregunta: (state) => {
+      if (state.activePreg) {
         state.preguntas = state.preguntas.filter(
-          (event) => event.id !== state.activeinscrip!.id
+          (event) => event.id !== state.activePreg!.id
         );
-        state.activeinscrip = null;
+        state.activePreg = null;
       }
     },
 
-    onLoadinscripciones: (state, action: PayloadAction<any[]>) => {
-      state.loadinginscrip = false;
+    onLoadPreguntas: (state, action: PayloadAction<any[]>) => {
+      state.activePreg = false;
       action.payload.forEach((event) => {
         const exists = state.preguntas.some(
           (dbEvent) => dbEvent.id === event.id
@@ -52,22 +53,22 @@ export const preguntasSlice = createSlice({
       });
     },
 
-    onLogoutinscripciones: (state) => {
-      state.loadinginscrip = true;
+    onLogoutPreguntas: (state) => {
+      state.activePreg = true;
       state.preguntas = [];
-      state.activeinscrip = null;
+      state.activePreg = null;
     },
   },
 });
 
 // Exportar actions
 export const {
-  onSetActiveInscripcion,
-  onAddNewInscripcion,
-  onUpdateInscripcion,
-  onDeleteInscripcion,
-  onLoadinscripciones,
-  onLogoutinscripciones,
+  onSetActivePregunta,
+  onAddNewPregunta,
+  onUpdatePregunta,
+  onDeletePregunta,
+  onLoadPreguntas,
+  onLogoutPreguntas,
 } = preguntasSlice.actions;
 
 // Exportar reducer

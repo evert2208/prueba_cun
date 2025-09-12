@@ -1,29 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useState } from 'react';
 import { CursosLayout } from "../layout/CursosLayout"
-import { useCursosStore, useLeccionesStore } from '../../store/hooks';
-import { useForm } from '../../hooks';
+import { useCursosStore } from "../../store/hooks"
 
 
-
-
-export const Cursos = () => {
-  const {startLoadingCursos, cursos}= useCursosStore();
-  const {lecciones, setActiveLec, startLoadingLec, startDeleteLec} = useLeccionesStore();
-  
+export const Inicio = () => {
+  const {cursos, setActiveCurso, startLoadingCursos, startDeleteCurso} = useCursosStore();
   
  
-  const { activeLec, startSavingLec} = useLeccionesStore();
+  const { activeCurso, startSavingCurso} = useCursosStore();
     const [formSubmit, setformSubmit] = useState(false)
 
     const [formValues, setformValues] = useState({
-      cursoId: 0,
       nombre: '',
+      descripcion: '',
       
     });
 
-    const { onResetForm } = useForm(formValues);
 
     const titleClass = useMemo(() => {
 
@@ -35,50 +28,48 @@ export const Cursos = () => {
 
 
     useEffect(() => {
-      if(activeLec !=null){
-        setformValues({...activeLec});
+      if(activeCurso !=null){
+        setformValues({...activeCurso});
       }
     
-    }, [activeLec])
+    }, [activeCurso])
     
 
     const onInputChange = ({target}:any)=> {
-      console.log(target.value)
       setformValues({
         ...formValues,
         [target.name]: target.value
       })
     }
 
-    const selectChange= async (event: any)=> {
-      
-      startLoadingLec(Number(event.target.value));
-    }
 
+
+  
 
     const onSubmit = async(event:any)=> {
       event.preventDefault();
       setformSubmit(true);
-      formValues.cursoId= Number(formValues.cursoId);
+
       if(formValues.nombre.length<=0) return;
-      
-      await startSavingLec(formValues);
+
+      await startSavingCurso(formValues);
+      // closeModal();
       setformSubmit(false);
-      onResetForm()
     
     }
  
   const onSelect = (event:any)=> {
-    setActiveLec(event);
+    setActiveCurso(event);
   }
 
   const onDelete = (curso: any)=> {
-    startDeleteLec(curso);
+    startDeleteCurso(curso);
   }
 
+  
   useEffect(() => {
     startLoadingCursos();
-   
+
   }, [])
   
   return (
@@ -87,30 +78,13 @@ export const Cursos = () => {
 <div className="row">
       <div className="col pb-5">
 
-<h1>LECCIONES</h1>
+<h1>CURSOS DISPONIBLES</h1>
 </div>
       </div>
       <div className="container">
         
               <form className="container row" onSubmit={onSubmit}>
-   <div className=" col">
-     <label>Curso</label>
   
-     <select
-        id="selectExample"
-        className="form-select"
-        value={formValues.cursoId}
-        onChange={(event)=>{onInputChange(event);selectChange(event)}}
-        name='cursoId'
-      >
-        <option value="">-- Selecciona --</option>
-        {cursos.map((curso: any) => (
-          <option key={curso.id} value={curso.id}>
-            {curso.nombre}
-          </option>
-        ))}
-      </select>
-
   <div className="col">
     <label>Nombre</label>
      <input 
@@ -124,6 +98,17 @@ export const Cursos = () => {
      />
  </div>
  
+ <div className=" col">
+     <label>Descripcion</label>
+     <input 
+         type="text" 
+         className={ `form-control`}
+         placeholder="Descripcion"
+         name="descripcion"
+         autoComplete="off"
+         value={formValues.descripcion}
+         onChange={onInputChange}
+     />
      <br />
 
     
@@ -134,7 +119,7 @@ export const Cursos = () => {
        className="btn btn-outline-primary"
    >
        <i className="far fa-save"></i>
-       <span>Agregar Leccion</span>
+       <span>Agregar Curso</span>
    </button>
 
  </div>
@@ -150,17 +135,17 @@ export const Cursos = () => {
       <thead>
     <tr>
       <th scope="col">Nombre</th>
-      <th scope="col">Curso</th>
+      <th scope="col">Descripcion</th>
       <th scope="col">Accion</th>
     </tr>
   </thead>
   <tbody>
 
     {
-      lecciones.map((curso: any) => (
+      cursos.map((curso: any) => (
         <tr key={curso.id}>
         <th scope="row">{curso.nombre}</th>
-        <td>{curso.cursoId}</td>
+        <td>{curso.descripcion}</td>
         <td><a id="accion" onClick={()=>{}}><i className="bi bi-pencil-square"></i></a>
         <a id="accion" onClick={()=>{onSelect(curso); onDelete(curso)}}><i className="bi bi-trash3-fill"></i></a></td>
       </tr>

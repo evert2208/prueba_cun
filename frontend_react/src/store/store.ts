@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { cursosSlice } from './cursos/cursosSlice'
-import { lecSlice } from './cursos/estSlice'
+import { lecSlice } from './cursos/leccSlice'
 import { preguntasSlice } from './cursos/preguntasSlice'
 
 

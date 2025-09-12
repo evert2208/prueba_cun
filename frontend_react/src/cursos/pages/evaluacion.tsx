@@ -4,22 +4,23 @@ import { useEffect, useMemo, useState } from 'react';
 import { CursosLayout } from "../layout/CursosLayout"
 import { useCursosStore, useLeccionesStore } from '../../store/hooks';
 import { useForm } from '../../hooks';
+import { useEvaluacionStore } from '../../store/hooks/useEvaluacionStore';
 
 
 
 
-export const Cursos = () => {
+export const Evaluacion = () => {
   const {startLoadingCursos, cursos}= useCursosStore();
-  const {lecciones, setActiveLec, startLoadingLec, startDeleteLec} = useLeccionesStore();
-  
-  
+  const {lecciones, startLoadingLec} = useLeccionesStore();
+  const {preguntas,startLoadingEva}= useEvaluacionStore();
+
  
   const { activeLec, startSavingLec} = useLeccionesStore();
     const [formSubmit, setformSubmit] = useState(false)
 
     const [formValues, setformValues] = useState({
-      cursoId: 0,
-      nombre: '',
+      leccionId:0,
+      cursoId: 0
       
     });
 
@@ -29,9 +30,9 @@ export const Cursos = () => {
 
       if(!formSubmit) return '';
 
-      return (formValues.nombre.length>0)?'':'is-invalid';
+      // return (formValues.nombre.length>0)?'':'is-invalid';
 
-    }, [formValues.nombre, formSubmit])
+    }, [ formSubmit])
 
 
     useEffect(() => {
@@ -59,22 +60,22 @@ export const Cursos = () => {
     const onSubmit = async(event:any)=> {
       event.preventDefault();
       setformSubmit(true);
-      formValues.cursoId= Number(formValues.cursoId);
-      if(formValues.nombre.length<=0) return;
+      formValues.leccionId= Number(formValues.leccionId);
+      // if(formValues.nombre.length<=0) return;
       
-      await startSavingLec(formValues);
+      await startLoadingEva(formValues.leccionId);
       setformSubmit(false);
       onResetForm()
     
     }
  
-  const onSelect = (event:any)=> {
-    setActiveLec(event);
-  }
+  // const onSelect = (event:any)=> {
+  //   setActiveEva(event);
+  // }
 
-  const onDelete = (curso: any)=> {
-    startDeleteLec(curso);
-  }
+  // const onDelete = (curso: any)=> {
+  //   startDeleteLec(curso);
+  // }
 
   useEffect(() => {
     startLoadingCursos();
@@ -87,7 +88,7 @@ export const Cursos = () => {
 <div className="row">
       <div className="col pb-5">
 
-<h1>LECCIONES</h1>
+<h1>EVALUACIONES</h1>
 </div>
       </div>
       <div className="container">
@@ -95,13 +96,12 @@ export const Cursos = () => {
               <form className="container row" onSubmit={onSubmit}>
    <div className=" col">
      <label>Curso</label>
-  
      <select
         id="selectExample"
         className="form-select"
-        value={formValues.cursoId}
         onChange={(event)=>{onInputChange(event);selectChange(event)}}
-        name='cursoId'
+         name='cursoId'
+         value={formValues.cursoId}
       >
         <option value="">-- Selecciona --</option>
         {cursos.map((curso: any) => (
@@ -112,8 +112,8 @@ export const Cursos = () => {
       </select>
 
   <div className="col">
-    <label>Nombre</label>
-     <input 
+    <label>Lección</label>
+     {/* <input 
          type="text" 
          className={ `form-control ${titleClass}`}
          placeholder="Nombre del curso"
@@ -121,7 +121,22 @@ export const Cursos = () => {
          autoComplete="off"
          value={formValues.nombre}
          onChange={onInputChange}
-     />
+     /> */}
+      <select
+        id="selectExample"
+        className="form-select"
+        value={formValues.leccionId}
+        onChange={(event)=>{onInputChange(event)}}
+        name='leccionId'
+        disabled={lecciones.length===0}
+      >
+        <option value="">-- Selecciona --</option>
+        {lecciones.map((curso: any) => (
+          <option key={curso.id} value={curso.id}>
+            {curso.nombre}
+          </option>
+        ))}
+      </select>
  </div>
  
      <br />
@@ -134,7 +149,7 @@ export const Cursos = () => {
        className="btn btn-outline-primary"
    >
        <i className="far fa-save"></i>
-       <span>Agregar Leccion</span>
+       <span>Buscar</span>
    </button>
 
  </div>
@@ -145,31 +160,27 @@ export const Cursos = () => {
         <div className="row">
           <div className="col">
             <div className="card">
-             
-            <table className="table table-responsive">
-      <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Curso</th>
-      <th scope="col">Accion</th>
-    </tr>
-  </thead>
-  <tbody>
-
-    {
-      lecciones.map((curso: any) => (
-        <tr key={curso.id}>
-        <th scope="row">{curso.nombre}</th>
-        <td>{curso.cursoId}</td>
-        <td><a id="accion" onClick={()=>{}}><i className="bi bi-pencil-square"></i></a>
-        <a id="accion" onClick={()=>{onSelect(curso); onDelete(curso)}}><i className="bi bi-trash3-fill"></i></a></td>
-      </tr>
-      ))
-    }
-  
-  
-  </tbody>
-</table>
+            {
+                preguntas.map((preg: any) => (
+                  <div key={preg.id}>
+                    <h6>{preg.enunciado}</h6>
+                    {preg.opciones.map((op: any, i: number) => (
+                      <div key={i} className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name={`pregunta-${preg.id}`}
+                          id={`opcion-${preg.id}-${i}`}
+                          value={op}
+                        />
+                        <label className="form-check-label" htmlFor={`opcion-${preg.id}-${i}`}>
+                          {op}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                ))
+              }
        
             </div>
           </div>
